@@ -1,5 +1,4 @@
-####
-# Example ~/.spiderviz.yaml:
+= Example ~/.spiderviz.yaml =
 
 skip_patterns:
  - '.zip$'
@@ -19,20 +18,17 @@ dot_header: >
  splines=true; 
  node[height=.5,width=5.0];
 
-####
-# Example site.yaml:
+= Example site.yaml =
 
 base:
     - "http://www.example.com"
     - "http://example.com"
 depth_factor: 2
 
-####
-# Usage
+= Usage =
 
 spiderviz.pl site.yaml > site.dot
 dot -Tpdf -osite.pdf site.dot
-neato -Tpdf -osite.pdf site.dot
-twopi -Tpdf -osite.pdf site.dot
-circo -Tpdf -osite.pdf site.dot
+
+(or, instead of dot: neato, twopi, circo)
 
