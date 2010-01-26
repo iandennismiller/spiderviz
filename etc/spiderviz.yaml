@@ -1,0 +1,31 @@
+skip_patterns:
+ - '.zip$'
+ - '.pdf$'
+ - '.ppt$'
+ - '.mov$'
+ - '/blog/'
+ - "/feed$"
+
+ignore_patterns:
+ - '^#'
+ - '#\w+$'
+ - '#$'
+
+dot_header2: >
+ digraph G {
+ rankdir="LR";
+ mclimit=64.0;
+ concentrate="true";
+ ranksep=1.0;
+ ratio=1.0;
+ node[shape=polygon, sides=4];
+
+dot_header: >
+ digraph G {
+ rankdir="LR"; 
+ mclimit=64.0; 
+ concentrate="true";
+ center="true"; 
+ overlap=false; 
+ splines=true; 
+ node[height=.5,width=5.0];
