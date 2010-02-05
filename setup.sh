@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="r6"
+VERSION="r14"
 
 port_path=`which port`
 apt_path=`which apt-get`
@@ -43,7 +43,11 @@ function copy_files {
     
     install -v bin/spiderviz.pl ~/bin
     cp -v lib/spiderviz.pm ~/perl
-    cp -v etc/spiderviz.yaml ~/.spiderviz.yaml
+    if [ ! -e ~/.spiderviz.yaml ]; then
+        cp -v etc/spiderviz.yaml ~/.spiderviz.yaml
+    else
+        echo "will not overwrite ~/.spiderviz.yaml"
+    fi
 }
 
 function make_dist {
@@ -69,18 +73,19 @@ function do_install {
     if [ -z "$dot_path" ]; then
         install_graphviz
     else
-        echo "skipping graphviz install"
+        echo "skipping graphviz install (appears to be already installed)"
     fi
     
     if [ -n "$perl_yaml" -o -n "$perl_sleepy" -o -n "$perl_base64" -o -n "$perl_lwp" ]; then
         install_cpan        
     else
-        echo "skipping perl modules install"
+        echo "skipping perl modules install (appears to be already installed)"
     fi
 
     copy_files
 
-    echo "To learn how to use spiderviz, please see"
+    echo
+    echo "To learn how to use spiderviz, please see:"
     echo "http://code.google.com/p/spiderviz/wiki/GettingStarted"
 }
 
