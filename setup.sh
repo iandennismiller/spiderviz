@@ -1,5 +1,7 @@
 #!/bin/bash
 
+VERSION="r6"
+
 port_path=`which port`
 apt_path=`which apt-get`
 cpan_path=`which cpan`
@@ -44,11 +46,26 @@ function copy_files {
     cp -v etc/spiderviz.yaml ~/.spiderviz.yaml
 }
 
-function display_usage {
-    cat doc/README.txt
+function make_dist {
+    rm -rf build
+    mkdir -v build build/bin build/doc build/lib build/etc build/test
+    cp -r -v bin/* build/bin
+    cp -r -v doc/* build/doc
+    cp -r -v lib/* build/lib
+    cp -r -v etc/* build/etc
+    cp -r -v test/* build/test
+    cp -v setup.sh build
+    mkdir -v dist
+    cp -r build dist/spiderviz-$VERSION
+    cd dist
+    tar cf spiderviz-$VERSION.tar spiderviz-$VERSION
+    gzip spiderviz-$VERSION.tar
+    cd ..
+    rm -rf dist/spiderviz-$VERSION
+    rm -rf build
 }
 
-function main {
+function do_install {
     if [ -z "$dot_path" ]; then
         install_graphviz
     else
@@ -63,7 +80,12 @@ function main {
 
     copy_files
 
-    #display_usage
+    echo "To learn how to use spiderviz, please see"
+    echo "http://code.google.com/p/spiderviz/wiki/GettingStarted"
 }
 
-main
+if [ "$1" = "dist" ]; then
+    make_dist
+else
+    do_install
+fi
