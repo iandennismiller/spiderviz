@@ -1,0 +1,4 @@
+base:
+    - "http://code.google.com/p/spiderviz/"
+depth_factor: 1
+
